@@ -17,7 +17,7 @@ RCT_EXPORT_MODULE();
 - (void) loadFontWithData:(CGDataProviderRef) fontDataProvider callback:(RCTResponseSenderBlock)callback
 {
   CGFontRef newFont = CGFontCreateWithDataProvider(fontDataProvider);
-  NSString *newFontName = (__bridge NSString *)CGFontCopyPostScriptName(newFont);
+  NSString *newFontName = (__bridge_transfer NSString *)CGFontCopyPostScriptName(newFont);
 
   UIFont* font = [UIFont fontWithName:newFontName size:16];
   if (font != nil) {
@@ -31,7 +31,7 @@ RCT_EXPORT_MODULE();
     CFStringRef errorDescription = CFErrorCopyDescription(error);
     NSLog(@"Failed to register font: %@", errorDescription);
 
-    callback(@[@"Failed to register font: %@", (__bridge NSString *)errorDescription]);
+    callback(@[@"Failed to register font: %@", (__bridge_transfer NSString *)errorDescription]);
   
     CFRelease(errorDescription);
     CGFontRelease(newFont);
