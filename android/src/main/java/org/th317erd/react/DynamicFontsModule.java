@@ -61,18 +61,13 @@ class DynamicFontsModule extends ReactContextBaseJavaModule {
     File f = new File(filePath);
 
     if (f.exists() && f.canRead()) {
-      boolean wasLoaded = false;
       try {
         Typeface typeface = Typeface.createFromFile(f);
         //Cache the font for react
         ReactFontManager.getInstance().setTypeface(name, typeface.getStyle(), typeface);
-        wasLoaded = true;
+        callback.invoke(null, name);
       } catch (Throwable e) {
         callback.invoke(e.getMessage());
-      } finally {
-        if (wasLoaded) {
-          callback.invoke(null, name);
-        }
       }
     } else {
       callback.invoke("invalid file");
@@ -150,10 +145,9 @@ class DynamicFontsModule extends ReactContextBaseJavaModule {
       ReactFontManager.getInstance().setTypeface(name, typeface.getStyle(), typeface);
 
       cacheFile.delete();
+      callback.invoke(null, name);
     } catch(Exception e) {
       callback.invoke(e.getMessage());
-    } finally {
-      callback.invoke(null, name);
     }
   }
 }
