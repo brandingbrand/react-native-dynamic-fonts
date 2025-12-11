@@ -5,8 +5,11 @@
  * directory of this source tree.
  */
 
-#import <React/RCTBridgeModule.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreText/CoreText.h>
+#import <DynamicFontsSpec/DynamicFontsSpec.h>
 
-@interface DynamicFonts: NSObject <RCTBridgeModule>
+@interface DynamicFonts : NSObject <NativeDynamicFontsSpec>
 
 @end
